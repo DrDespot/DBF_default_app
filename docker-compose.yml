@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: dbf-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: dbfdb
+      MYSQL_USER: dbfuser
+      MYSQL_PASSWORD: dbfpass
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3007:3306"  # host port 3007 maps to container 3306
+
+  php:
+    image: php:8.2-fpm
+    container_name: dbf-php
+    volumes:
+      - ./php:/var/www/html
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:latest
+    container_name: dbf-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./php:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
