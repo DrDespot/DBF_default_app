@@ -1,6 +1,6 @@
 CREATE DATABASE testdb;
 
-USE testdb;
+USE dbfdb;
 
 CREATE TABLE items (
     id INT AUTO_INCREMENT PRIMARY KEY,
