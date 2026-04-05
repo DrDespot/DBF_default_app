@@ -22,6 +22,7 @@ $items = $pdo->query("SELECT * FROM items ORDER BY created_at DESC")->fetchAll(P
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/styles.css">
     <title>Simple CRUD</title>
 </head>
 <body>
